@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gain Hub - How It Works</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #111827;
+            --accent: #38bdf8;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --success: #22c55e;
+            --danger: #f97316;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Inter, system-ui, sans-serif;
+            background: linear-gradient(180deg, #020617 0%, #111827 100%);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 40%);
+            padding: 4rem 1.5rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            max-width: 720px;
+            margin: 0 auto;
+            color: var(--muted);
+        }
+
+        main {
+            max-width: 1120px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .cards {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            border-radius: 20px;
+            padding: 1.75rem;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(56, 189, 248, 0.35);
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            margin-bottom: 0.75rem;
+            color: #f8fafc;
+        }
+
+        .text-muted {
+            color: var(--muted);
+        }
+
+        .premium {
+            background: rgba(56, 189, 248, 0.08);
+            border-color: rgba(56, 189, 248, 0.24);
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.95rem 1.4rem;
+            border: none;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #020617;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            text-decoration: none;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+
+        .features {
+            list-style: none;
+            margin-top: 1rem;
+            padding-left: 0;
+        }
+
+        .features li {
+            margin-bottom: 0.85rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .features li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .toggle-panel {
+            margin-top: 1rem;
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            display: none;
+        }
+
+        .notice {
+            margin-top: 1rem;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 14px;
+            padding: 1rem;
+            color: #ecfccb;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            color: var(--muted);
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding-top: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gain Hub</h1>
+        <p>Learn how Gain Hub helps users turn knowledge, skill, and effort into reward through a premium membership that makes earning simple, transparent, and scalable.</p>
+    </header>
+
+    <main>
+        <section class="grid">
+            <article class="card">
+                <h2 class="section-title">What is Gain Hub?</h2>
+                <p class="text-muted">Gain Hub is a digital platform designed to help users discover income opportunities, build credibility, and earn from activities, content, or referrals. It combines company intelligence, premium tools, and a straightforward earning model.</p>
+            </article>
+
+            <article class="card">
+                <h2 class="section-title">How it works</h2>
+                <p class="text-muted">Gain Hub works by connecting members with learning resources, community support, and high-value offers. The platform offers both free tools and an upgraded premium plan for accelerated earning.</p>
+            </article>
+
+            <article class="card premium">
+                <h2 class="section-title">Premium Plan</h2>
+                <p class="text-muted">The premium tier unlocks advanced features, priority support, and the ability to earn more through exclusive offers. A paid subscription is required to access the full earning ecosystem.</p>
+            </article>
+        </section>
+
+        <section class="card" style="margin-top: 2rem;">
+            <h2 class="section-title">Company and site overview</h2>
+            <p>Gain Hub is built to help individuals and small teams create sustainable revenue. The company focuses on clarity, performance, and trust. The website explains tools, pricing, and how members can start earning fast.</p>
+            <ul class="features">
+                <li>Transparent earning model</li>
+                <li>Premium dashboard with analytics</li>
+                <li>Access to curated offers and tasks</li>
+                <li>Secure payment processing for subscriptions</li>
+            </ul>
+        </section>
+
+        <section class="card premium" style="margin-top: 1.5rem;">
+            <h2 class="section-title">Premium access details</h2>
+            <p class="text-muted">To earn the highest rewards, users must subscribe to the premium plan. This payment unlocks advanced workflows and higher payout options across the platform.</p>
+            <ul class="features">
+                <li>Enhanced earning rates</li>
+                <li>Monthly reports and insights</li>
+                <li>Exclusive partner offers</li>
+                <li>Faster withdrawal speeds</li>
+            </ul>
+            <button class="button" id="togglePremium">Show pricing</button>
+            <div class="toggle-panel" id="premiumPanel">
+                <p><strong>Premium plan price:</strong> $29.99 / month</p>
+                <p>The plan is billed each month and gives members access to everything needed to grow earnings and track performance.</p>
+            </div>
+        </section>
+
+        <section class="card" style="margin-top: 1.5rem;">
+            <h2 class="section-title">How to get started</h2>
+            <ol class="features">
+                <li>Create your Gain Hub account.</li>
+                <li>Choose the premium plan to unlock earning tools.</li>
+                <li>Complete tasks, share opportunities, or build content.</li>
+                <li>Withdraw earnings safely once you reach the minimum threshold.</li>
+            </ol>
+            <div class="notice">
+                Note: Payment is required for the premium plan. Members must subscribe to qualify for the maximum earning benefits.
+            </div>
+        </section>
+
+        <section class="card" style="margin-top: 1.5rem;">
+            <h2 class="section-title">Why premium is required</h2>
+            <p class="text-muted">The premium plan funds platform growth, ensures secure payouts, and supports the development of new earning pathways. Paying for premium gives members access to exclusive features not available to free users.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Gain Hub • Learn more, pay for premium, and earn with confidence.</p>
+    </footer>
+
+    <script>
+        const button = document.getElementById("togglePremium");
+        const panel = document.getElementById("premiumPanel");
+
+        button.addEventListener("click", function () {
+            const isVisible = panel.style.display === "block";
+            panel.style.display = isVisible ? "none" : "block";
+            button.textContent = isVisible ? "Show pricing" : "Hide pricing";
+        });
+
+        window.addEventListener("load", function () {
+            panel.style.display = "none";
+        });
+    </script>
+</body>
+</html>

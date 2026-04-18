@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Ads Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: white;
+            color: #667eea;
+        }
+
+        .ads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .ad-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: none;
+        }
+
+        .ad-card.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ad-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .ad-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+        }
+
+        .ad-content {
+            padding: 20px;
+        }
+
+        .ad-category {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+
+        .ad-title {
+            font-size: 1.3em;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .ad-description {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .ad-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ad-price {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .ad-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .ad-btn:hover {
+            background: #764ba2;
+        }
+
+        .no-results {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Premium Ads</h1>
+            <p>Discover amazing offers and products</p>
+        </header>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="electronics">Electronics</button>
+            <button class="filter-btn" data-filter="fashion">Fashion</button>
+            <button class="filter-btn" data-filter="services">Services</button>
+        </div>
+
+        <div class="ads-grid" id="adsGrid"></div>
+        <div class="no-results" id="noResults" style="display: none;">No ads found in this category.</div>
+    </div>
+
+    <script>
+        const ads = [
+            { id: 1, title: 'Wireless Headphones', category: 'electronics', description: 'Premium sound quality with noise cancellation', price: '$199', icon: '🎧' },
+            { id: 2, title: 'Designer Jacket', category: 'fashion', description: 'Stylish and comfortable for all seasons', price: '$129', icon: '👔' },
+            { id: 3, title: 'Web Development Course', category: 'services', description: 'Learn HTML, CSS, and JavaScript from experts', price: '$49', icon: '💻' },
+            { id: 4, title: 'Smart Watch', category: 'electronics', description: 'Track your fitness and stay connected', price: '$249', icon: '⌚' },
+            { id: 5, title: 'Summer Dress', category: 'fashion', description: 'Perfect for beach and casual outings', price: '$59', icon: '👗' },
+            { id: 6, title: 'Consulting Services', category: 'services', description: 'Professional business advice and strategy', price: '$150/hr', icon: '📊' },
+        ];
+
+        const adsGrid = document.getElementById('adsGrid');
+        const noResults = document.getElementById('noResults');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        function renderAds(filter = 'all') {
+            adsGrid.innerHTML = '';
+            let count = 0;
+
+            ads.forEach(ad => {
+                if (filter === 'all' || ad.category === filter) {
+                    const card = document.createElement('div');
+                    card.className = 'ad-card show';
+                    card.innerHTML = `
+                        <div class="ad-image">${ad.icon}</div>
+                        <div class="ad-content">
+                            <span class="ad-category">${ad.category}</span>
+                            <h3 class="ad-title">${ad.title}</h3>
+                            <p class="ad-description">${ad.description}</p>
+                            <div class="ad-footer">
+                                <span class="ad-price">${ad.price}</span>
+                                <button class="ad-btn" onclick="alert('Added to cart: ${ad.title}')">View</button>
+                            </div>
+                        </div>
+                    `;
+                    adsGrid.appendChild(card);
+                    count++;
+                }
+            });
+
+            noResults.style.display = count === 0 ? 'block' : 'none';
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderAds(btn.dataset.filter);
+            });
+        });
+
+        renderAds();
+    </script>
+</body>
+</html>
